@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Collaborative Fill-in-the-Blanks (p5 + Firebase)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --gap: 10px; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:#f7f7f8; color:#111;
+    }
+    header {
+      padding: 16px 20px; background:#fff; border-bottom:1px solid #e5e7eb;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+    .controls { display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap: wrap; }
+    button {
+      appearance: none; border: 1px solid #d1d5db; background:#fff; color:#111;
+      padding: 8px 12px; border-radius: 10px; font-size: 14px; cursor: pointer;
+      box-shadow: 0 1px 0 rgba(0,0,0,.02);
+    }
+    button:hover { border-color:#9ca3af; }
+    button.primary { border-color:#3b82f6; }
+    .status { font-size: 13px; color:#6b7280; margin-left: 6px; min-height: 1em; }
+    .outer { max-width: 980px; margin: 20px auto 40px; padding: 0 16px; }
+    .line {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: var(--gap);
+      align-items: center;
+      background: #fff;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    }
+    .line + .line { margin-top: 10px; }
+    .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color:#374151; }
+    input {
+      min-width: 120px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      outline: none;
+      font-size: 15px;
+      background:#fff;
+    }
+    input:focus { border-color:#3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+    .noun-row {
+      margin: 4px 0 12px 0; font-size: 13px; color: #6b7280; user-select: text;
+    }
+    .small { color:#6b7280; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1 style="margin:0; font-size:20px;">Collaborative Fill-in-the-Blanks</h1>
+      <div class="small">30 lines · 3 blanks each · Wikipedia nouns · live sync via Firebase</div>
+      <div class="controls">
+        <button id="saveBtn" class="primary">Save Text</button>
+        <button id="resetBtn">Reset All</button>
+        <span id="status" class="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="outer">
+    <div id="app"></div>
+  </div>
+
+  <!-- p5.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+  <!-- Firebase (compat for simple global usage) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    // TODO: Replace with YOUR Firebase config:
+  const firebaseConfig = {
+
+  apiKey: "AIzaSyDMa0-UukLC3PPEMLnahoMq0yNaa83sFu4",
+
+  authDomain: "narrativefillintheblank.firebaseapp.com",
+
+  projectId: "narrativefillintheblank",
+
+  storageBucket: "narrativefillintheblank.firebasestorage.app",
+
+  messagingSenderId: "150406143382",
+
+  appId: "1:150406143382:web:4878a222ea2037cb45d1b7",
+
+  measurementId: "G-9GCPKRTDZY"
+
+};
+    window.firebaseApp = firebase.initializeApp(firebaseConfig);
+    window.db = firebase.database();
+  </script>
+
+  <!-- App code -->
+  <script src="fill_in_the_blank.js"></script>
+</body>
+</html>
