@@ -7,7 +7,7 @@
  */
 
 let container;
-const LINES = 30;
+const LINES = 70;
 const BLANKS_PER_LINE = 3;
 const NOUNS_PER_LINE = 10;
 
