@@ -16,10 +16,10 @@ const nounLineEls = [];     // per-line DIV where nouns render
 
 // Static text segments (customize)
 const segments = Array.from({ length: LINES }, (_, i) => ([
-  `Line ${i + 1}: Before`,
-  `then`,
+  `Once upon a time, ${i + 1}: Before`,
   `and then`,
-  `finally`
+  `and then`,
+  `The end`
 ]));
 
 // Stopword-ish list to filter out function words etc.
